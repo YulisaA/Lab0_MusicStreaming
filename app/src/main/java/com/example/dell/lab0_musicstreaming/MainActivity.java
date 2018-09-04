@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Song> getItems()
     {
         ArrayList<Song> list = new ArrayList<>();
-
         list.add(new Song(R.drawable.music, "Be the One", "3:04"));
         list.add(new Song(R.drawable.music, "Empires", "4:30"));
         list.add(new Song(R.drawable.music, "Closer", "5:01"));
@@ -42,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
     private HashMap<String, Song> searchItem()
     {
         HashMap<String, Song> dictionary = new HashMap<>();
-
         dictionary.put("Be the One", new Song(R.drawable.music, "Be the One", "3:04"));
         dictionary.put("Empires", new Song(R.drawable.music, "Empires", "4:30"));
         dictionary.put("Closer", new Song(R.drawable.music, "Closer", "5:01"));
