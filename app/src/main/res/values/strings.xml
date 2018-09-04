@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Lab0_MusicStreaming</string>
+    <string name="app_name">Startup Guatemala</string>
+    <string name="btnFind">Buscar</string>
 </resources>
