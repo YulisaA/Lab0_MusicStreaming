@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Startup Guatemala</string>
     <string name="btnFind">Buscar</string>
+    <string name="generar">Ingrese canción</string>
 </resources>
