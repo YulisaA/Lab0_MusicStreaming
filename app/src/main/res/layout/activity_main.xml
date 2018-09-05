@@ -11,13 +11,13 @@
     <EditText
         android:id="@+id/txtSearch"
         style="@android:style/Widget.EditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="168dp"
+        android:layout_height="44dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="Buscar canción"
         android:inputType="textPersonName"
@@ -25,7 +25,7 @@
         android:singleLine="false"
         android:visibility="visible"
         app:layout_constraintEnd_toStartOf="@+id/btnSearch"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.653"
         app:layout_constraintStart_toStartOf="@+id/linearLayout"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -39,7 +39,7 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="363dp"
-        android:layout_height="105dp"
+        android:layout_height="85dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
@@ -52,19 +52,22 @@
         app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"></LinearLayout>
+        app:layout_constraintVertical_bias="1.0"></LinearLayout>
 
     <Button
         android:id="@+id/btnSearch"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="28dp"
-        android:layout_marginRight="28dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="204dp"
+        android:layout_marginStart="204dp"
+        android:layout_marginTop="16dp"
         android:text="BUSCAR"
-        app:layout_constraintEnd_toEndOf="@+id/linearLayout"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <LinearLayout
         android:layout_width="345dp"
@@ -96,6 +99,21 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="212dp" />
+
+    <ImageButton
+        android:id="@+id/btnOptions"
+        android:layout_width="40dp"
+        android:layout_height="65dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintStart_toEndOf="@+id/btnSearch"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ellipsis" />
 
 
 </android.support.constraint.ConstraintLayout>

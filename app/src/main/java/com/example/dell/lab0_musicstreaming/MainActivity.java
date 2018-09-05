@@ -1,21 +1,23 @@
 package com.example.dell.lab0_musicstreaming;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.Guideline;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import android.widget.Toast;
+import butterknife.OnItemClick;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,11 +34,14 @@ public class MainActivity extends AppCompatActivity {
     ListView mySongs;
     @BindView(R.id.guideline2)
     Guideline guideline2;
+    @BindView(R.id.btnOptions)
+    ImageButton btnOptions;
     //private ListView mySongs;
 
     private PlaylistProperties playList;
     private PlaylistProperties playListSearch;
     HashMap<String, Song> dictionary = new HashMap<>();
+    ArrayList<Song> list = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private ArrayList<Song> getItems() {
-        ArrayList<Song> list = new ArrayList<>();
         list.add(new Song(R.drawable.music, "Be the One", "3:04"));
         list.add(new Song(R.drawable.music, "Empires", "4:30"));
         list.add(new Song(R.drawable.music, "Closer", "5:01"));
@@ -62,23 +66,6 @@ public class MainActivity extends AppCompatActivity {
         list.add(new Song(R.drawable.music, "Heartbeats", "5:11"));
         list.add(new Song(R.drawable.music, "Closer than you know", "3:03"));
         list.add(new Song(R.drawable.music, "Every Little Thing", "4:50"));
-
-        return list;
-    }
-
-    private ArrayList<Song> getItemsSearch() {
-        ArrayList<Song> list = new ArrayList<>();
-        list.add(new Song(R.drawable.music, "Be the One", "3:04"));
-        list.add(new Song(R.drawable.music, "Empires", "4:30"));
-        list.add(new Song(R.drawable.music, "Closer", "5:01"));
-        list.add(new Song(R.drawable.music, "From The Inside Out", "4:03"));
-        list.add(new Song(R.drawable.music, "Your love is a song", "3:51"));
-        list.add(new Song(R.drawable.music, "Back To Life", "2:40"));
-        list.add(new Song(R.drawable.music, "La otra orilla", "1:20"));
-        list.add(new Song(R.drawable.music, "Heartbeats", "5:11"));
-        list.add(new Song(R.drawable.music, "Closer than you know", "3:03"));
-        list.add(new Song(R.drawable.music, "Every Little Thing", "4:50"));
-        searchItem();
 
         return list;
     }
@@ -102,23 +89,30 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.btnSearch)
     public void onViewClicked() {
-        if(txtSearch.getText().length() == 0)
-        {
-            Toast.makeText (this,"Ingrese canción",Toast.LENGTH_SHORT).show();
-        }
-        else{
+        if (txtSearch.getText().length() == 0) {
+            Toast.makeText(this, "Ingrese canción", Toast.LENGTH_SHORT).show();
+        } else {
             String key = txtSearch.getText().toString();
-             if(searchItem().containsKey(key))
-             {
-                 ArrayList<Song> tempList = new ArrayList<>();
-                 tempList.add(new Song(R.drawable.music, key, dictionary.get(key).getDuration().toString()));
-                 mySongs = (ListView) findViewById(R.id.mySongs);
-                 playListSearch = new PlaylistProperties(this, tempList);
-                 mySongs.setAdapter(playListSearch);
-             }
-             else{
-                 Toast.makeText (this,"No se encuentra la canción.",Toast.LENGTH_LONG).show();
-             }
+            if (searchItem().containsKey(key)) {
+                ArrayList<Song> tempList = new ArrayList<>();
+                tempList.add(new Song(R.drawable.music, key, dictionary.get(key).getDuration().toString()));
+                mySongs = (ListView) findViewById(R.id.mySongs);
+                playListSearch = new PlaylistProperties(this, tempList);
+                mySongs.setAdapter(playListSearch);
+            } else {
+                ArrayList<Song> tempList = new ArrayList<>();
+                tempList.add(new Song(R.drawable.noth, "", ""));
+                mySongs = (ListView) findViewById(R.id.mySongs);
+                playListSearch = new PlaylistProperties(this, tempList);
+                mySongs.setAdapter(playListSearch);
+                Toast.makeText(this, "No se encuentra la canción.", Toast.LENGTH_LONG).show();
+            }
         }
+    }
+
+    @OnClick(R.id.btnOptions)
+    public void onViewClickedOptions() {
+        Intent intent = new Intent (this, Main2Activity.class);
+        startActivity(intent);
     }
 }
