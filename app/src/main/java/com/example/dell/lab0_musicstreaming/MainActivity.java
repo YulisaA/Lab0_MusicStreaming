@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         mySongs = (ListView) findViewById(R.id.mySongs);
-        playList = new PlaylistProperties(this, getItems());
+        playList = new PlaylistProperties("",this, getItems());
         mySongs.setAdapter(playList);
     }
 
@@ -97,13 +97,13 @@ public class MainActivity extends AppCompatActivity {
                 ArrayList<Song> tempList = new ArrayList<>();
                 tempList.add(new Song(R.drawable.music, key, dictionary.get(key).getDuration().toString()));
                 mySongs = (ListView) findViewById(R.id.mySongs);
-                playListSearch = new PlaylistProperties(this, tempList);
+                playListSearch = new PlaylistProperties("",this, tempList);
                 mySongs.setAdapter(playListSearch);
             } else {
                 ArrayList<Song> tempList = new ArrayList<>();
                 tempList.add(new Song(R.drawable.noth, "", ""));
                 mySongs = (ListView) findViewById(R.id.mySongs);
-                playListSearch = new PlaylistProperties(this, tempList);
+                playListSearch = new PlaylistProperties("",this, tempList);
                 mySongs.setAdapter(playListSearch);
                 Toast.makeText(this, "No se encuentra la canción.", Toast.LENGTH_LONG).show();
             }

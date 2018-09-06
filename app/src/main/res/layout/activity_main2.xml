@@ -162,23 +162,22 @@
 
     <EditText
         android:id="@+id/txtDSong"
-        android:layout_width="199dp"
-        android:layout_height="29dp"
+        android:layout_width="206dp"
+        android:layout_height="38dp"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="32dp"
         android:layout_marginStart="32dp"
         android:ems="10"
         android:hint="Duración (MM:SS) Ej: 03:42"
         android:inputType="textPersonName"
-        android:text="Name"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/txtNameSong"
-        android:layout_width="199dp"
-        android:layout_height="29dp"
+        android:layout_width="205dp"
+        android:layout_height="38dp"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="32dp"
         android:layout_marginStart="32dp"

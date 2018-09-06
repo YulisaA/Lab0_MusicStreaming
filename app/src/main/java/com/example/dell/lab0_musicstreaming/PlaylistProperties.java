@@ -14,13 +14,15 @@ public class PlaylistProperties extends BaseAdapter{
 
     private Context context;
     private ArrayList<Song> Playlist;
+    private String name;
 
     @Override
     public int getCount() {
         return Playlist.size();
     }
 
-    public PlaylistProperties(Context context, ArrayList<Song> playlist) {
+    public PlaylistProperties(String name, Context context, ArrayList<Song> playlist) {
+        this.name = name;
         this.context = context;
         Playlist = playlist;
     }
@@ -33,6 +35,8 @@ public class PlaylistProperties extends BaseAdapter{
 
     @Override
     public long getItemId(int position) {
+
+
         return 0;
     }
 
@@ -51,4 +55,7 @@ public class PlaylistProperties extends BaseAdapter{
 
         return convertView;
     }
+
+    public String getName(){return name;}
+    public ArrayList<Song> getPlaylist() {return Playlist;}
 }

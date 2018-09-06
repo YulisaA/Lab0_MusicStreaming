@@ -46,10 +46,10 @@ public class Main2Activity extends AppCompatActivity {
     @BindView(R.id.txtNameSong)
     EditText txtNameSong;
 
-    private PlaylistProperties List;
+    private PlaylistProperties myplaylist;
     HashMap<String, Song> dictionary = new HashMap<>();
     ArrayList<Song> list = new ArrayList<>();
-    ArrayList<playList> ListOfLists = new ArrayList<>();
+    ArrayList<PlaylistProperties> ListOfLists = new ArrayList<>();
 
 
     @Override
@@ -59,14 +59,13 @@ public class Main2Activity extends AppCompatActivity {
         ButterKnife.bind(this);
     }
 
-
     @OnClick({R.id.btnAdd, R.id.btnCreate, R.id.btnSort, R.id.btnCreatePL})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             //Add a new song to one of the playlists created
             case R.id.btnAdd:
-                txtNamePL.setVisibility(View.VISIBLE);
-                btnCreatePL.setVisibility(View.VISIBLE);
+                txtNamePL.setVisibility(View.INVISIBLE);
+                btnCreatePL.setVisibility(View.INVISIBLE);
                 txtNameSong.setVisibility(View.VISIBLE);
                 txtDSong.setVisibility(View.VISIBLE);
                 btnAddSong.setVisibility(View.VISIBLE);
@@ -79,17 +78,21 @@ public class Main2Activity extends AppCompatActivity {
                 btnAddSong.setVisibility(View.INVISIBLE);
                 break;
             case R.id.btnSort:
+                txtNamePL.setVisibility(View.INVISIBLE);
+                btnCreatePL.setVisibility(View.INVISIBLE);
+                txtNameSong.setVisibility(View.INVISIBLE);
+                txtDSong.setVisibility(View.INVISIBLE);
+                btnAddSong.setVisibility(View.INVISIBLE);
                 break;
             case R.id.btnCreatePL:
                 ArrayList<Song> tempList = new ArrayList<>();
                 tempList.add(new Song(R.drawable.noth, "", ""));
                 mySongs = (ListView) findViewById(R.id.mySongs);
-                List = new PlaylistProperties(this, tempList);
-                mySongs.setAdapter(List);
+                myplaylist = new PlaylistProperties("", this, tempList);
+                mySongs.setAdapter(myplaylist);
 
                 String name = txtNamePL.getText().toString();
-                playList myplaylist;
-                myplaylist = new playList(name, tempList);
+                myplaylist = new PlaylistProperties(name, this, tempList);
 
                 if (ListOfLists.contains(myplaylist)) {
                     Toast.makeText(this, "Ingrese otro nombre.", Toast.LENGTH_LONG).show();
@@ -124,5 +127,24 @@ public class Main2Activity extends AppCompatActivity {
         txtNameSong.setVisibility(View.INVISIBLE);
         txtDSong.setVisibility(View.INVISIBLE);
         btnAddSong.setVisibility(View.INVISIBLE);
+
+        Spinner mySpinner = (Spinner) findViewById(R.id.spinner);
+        String namePlaylist = mySpinner.getSelectedItem().toString();
+        String nameSong = txtNameSong.getText().toString();
+        String durationSong = txtDSong.getText().toString();
+
+        for (int i = 0; i < ListOfLists.size(); i++) {
+            if(namePlaylist == ListOfLists.get(i).getName())
+            {
+                ListOfLists.get(i).getPlaylist().add(new Song(R.drawable.music, nameSong, durationSong));
+
+                mySongs = (ListView) findViewById(R.id.mySongs);
+                myplaylist = new PlaylistProperties(namePlaylist, this, ListOfLists.get(i).getPlaylist());
+                mySongs.setAdapter(myplaylist);
+            }
+        }
+
+
+
     }
 }
