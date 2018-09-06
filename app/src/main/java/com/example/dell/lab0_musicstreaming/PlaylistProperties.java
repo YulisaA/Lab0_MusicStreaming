@@ -27,6 +27,7 @@ public class PlaylistProperties extends BaseAdapter{
         Playlist = playlist;
     }
 
+
     @Override
 
     public Object getItem(int position) {

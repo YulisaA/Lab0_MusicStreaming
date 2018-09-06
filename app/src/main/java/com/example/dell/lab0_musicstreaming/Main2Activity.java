@@ -8,10 +8,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 
 import butterknife.BindView;
@@ -45,6 +49,12 @@ public class Main2Activity extends AppCompatActivity {
     EditText txtDSong;
     @BindView(R.id.txtNameSong)
     EditText txtNameSong;
+    @BindView(R.id.rbASC)
+    RadioButton rbASC;
+    @BindView(R.id.rbDESC)
+    RadioButton rbDESC;
+    @BindView(R.id.btnSortPL)
+    Button btnSortPL;
 
     private PlaylistProperties myplaylist;
     HashMap<String, Song> dictionary = new HashMap<>();
@@ -69,6 +79,10 @@ public class Main2Activity extends AppCompatActivity {
                 txtNameSong.setVisibility(View.VISIBLE);
                 txtDSong.setVisibility(View.VISIBLE);
                 btnAddSong.setVisibility(View.VISIBLE);
+                btnSortPL.setVisibility(View.INVISIBLE);
+
+                rbASC.setVisibility(View.INVISIBLE);
+                rbDESC.setVisibility(View.INVISIBLE);
                 break;
             case R.id.btnCreate:
                 txtNamePL.setVisibility(View.VISIBLE);
@@ -76,6 +90,10 @@ public class Main2Activity extends AppCompatActivity {
                 txtNameSong.setVisibility(View.INVISIBLE);
                 txtDSong.setVisibility(View.INVISIBLE);
                 btnAddSong.setVisibility(View.INVISIBLE);
+                btnSortPL.setVisibility(View.INVISIBLE);
+;
+                rbASC.setVisibility(View.INVISIBLE);
+                rbDESC.setVisibility(View.INVISIBLE);
                 break;
             case R.id.btnSort:
                 txtNamePL.setVisibility(View.INVISIBLE);
@@ -83,6 +101,10 @@ public class Main2Activity extends AppCompatActivity {
                 txtNameSong.setVisibility(View.INVISIBLE);
                 txtDSong.setVisibility(View.INVISIBLE);
                 btnAddSong.setVisibility(View.INVISIBLE);
+                btnSortPL.setVisibility(View.VISIBLE);
+
+                rbASC.setVisibility(View.VISIBLE);
+                rbDESC.setVisibility(View.VISIBLE);
                 break;
             case R.id.btnCreatePL:
                 ArrayList<Song> tempList = new ArrayList<>();
@@ -115,6 +137,10 @@ public class Main2Activity extends AppCompatActivity {
                 txtNameSong.setVisibility(View.INVISIBLE);
                 txtDSong.setVisibility(View.INVISIBLE);
                 btnAddSong.setVisibility(View.INVISIBLE);
+                btnSortPL.setVisibility(View.INVISIBLE);
+
+                rbASC.setVisibility(View.INVISIBLE);
+                rbDESC.setVisibility(View.INVISIBLE);
                 break;
         }
     }
@@ -127,6 +153,10 @@ public class Main2Activity extends AppCompatActivity {
         txtNameSong.setVisibility(View.INVISIBLE);
         txtDSong.setVisibility(View.INVISIBLE);
         btnAddSong.setVisibility(View.INVISIBLE);
+        btnSortPL.setVisibility(View.INVISIBLE);
+
+        rbASC.setVisibility(View.INVISIBLE);
+        rbDESC.setVisibility(View.INVISIBLE);
 
         Spinner mySpinner = (Spinner) findViewById(R.id.spinner);
         String namePlaylist = mySpinner.getSelectedItem().toString();
@@ -134,8 +164,7 @@ public class Main2Activity extends AppCompatActivity {
         String durationSong = txtDSong.getText().toString();
 
         for (int i = 0; i < ListOfLists.size(); i++) {
-            if(namePlaylist == ListOfLists.get(i).getName())
-            {
+            if (namePlaylist == ListOfLists.get(i).getName()) {
                 ListOfLists.get(i).getPlaylist().add(new Song(R.drawable.music, nameSong, durationSong));
 
                 mySongs = (ListView) findViewById(R.id.mySongs);
@@ -145,6 +174,67 @@ public class Main2Activity extends AppCompatActivity {
         }
 
 
+    }
+
+    @OnClick(R.id.btnSortPL)
+    public void onViewClickedd() {
+        txtNamePL.setVisibility(View.INVISIBLE);
+        btnCreatePL.setVisibility(View.INVISIBLE);
+        txtNameSong.setVisibility(View.INVISIBLE);
+        txtDSong.setVisibility(View.INVISIBLE);
+        btnAddSong.setVisibility(View.INVISIBLE);
+        btnSortPL.setVisibility(View.INVISIBLE);
+
+        rbASC.setVisibility(View.INVISIBLE);
+        rbDESC.setVisibility(View.INVISIBLE);
+
+        RadioButton rb1ASC = (RadioButton) findViewById(R.id.rbASC);
+        RadioButton rb2DESC = (RadioButton) findViewById(R.id.rbDESC);
+
+        if(rb1ASC.isChecked())
+        {
+            Spinner mySpinner = (Spinner) findViewById(R.id.spinner);
+            String namePlaylist = mySpinner.getSelectedItem().toString();
+
+            for (int i = 0; i < ListOfLists.size(); i++) {
+                if (namePlaylist == ListOfLists.get(i).getName()) {
+                    Collections.sort(ListOfLists.get(i).getPlaylist(), new Comparator<Song>() {
+
+                        public int compare(Song t1, Song t2) {
+                            return t1.getName().compareTo(t2.getName());
+                        }
+                    });
+
+                    mySongs = (ListView) findViewById(R.id.mySongs);
+                    myplaylist = new PlaylistProperties(namePlaylist, this, ListOfLists.get(i).getPlaylist());
+                    mySongs.setAdapter(myplaylist);
+                }
+            }
+        }
+        else if(rb2DESC.isChecked())
+        {
+            Spinner mySpinner = (Spinner) findViewById(R.id.spinner);
+            String namePlaylist = mySpinner.getSelectedItem().toString();
+
+            for (int i = 0; i < ListOfLists.size(); i++) {
+                if (namePlaylist == ListOfLists.get(i).getName()) {
+                    Collections.sort(ListOfLists.get(i).getPlaylist(), new Comparator<Song>() {
+
+                        public int compare(Song t1, Song t2) {
+                            return t1.getDuration().compareTo(t2.getDuration());
+                        }
+                    });
+
+                    mySongs = (ListView) findViewById(R.id.mySongs);
+                    myplaylist = new PlaylistProperties(namePlaylist, this, ListOfLists.get(i).getPlaylist());
+                    mySongs.setAdapter(myplaylist);
+                }
+            }
+
+        }
+        else{
+            Toast.makeText(this, "Seleccione una de las opciones.", Toast.LENGTH_LONG).show();
+        }
 
     }
 }
