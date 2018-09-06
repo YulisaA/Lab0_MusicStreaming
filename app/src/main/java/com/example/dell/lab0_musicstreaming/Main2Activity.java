@@ -39,6 +39,13 @@ public class Main2Activity extends AppCompatActivity {
     EditText txtNamePL;
     @BindView(R.id.btnCreatePL)
     Button btnCreatePL;
+    @BindView(R.id.btnAddSong)
+    Button btnAddSong;
+    @BindView(R.id.txtDSong)
+    EditText txtDSong;
+    @BindView(R.id.txtNameSong)
+    EditText txtNameSong;
+
     private PlaylistProperties List;
     HashMap<String, Song> dictionary = new HashMap<>();
     ArrayList<Song> list = new ArrayList<>();
@@ -56,11 +63,20 @@ public class Main2Activity extends AppCompatActivity {
     @OnClick({R.id.btnAdd, R.id.btnCreate, R.id.btnSort, R.id.btnCreatePL})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            //Add a new song to one of the playlists created
             case R.id.btnAdd:
+                txtNamePL.setVisibility(View.VISIBLE);
+                btnCreatePL.setVisibility(View.VISIBLE);
+                txtNameSong.setVisibility(View.VISIBLE);
+                txtDSong.setVisibility(View.VISIBLE);
+                btnAddSong.setVisibility(View.VISIBLE);
                 break;
             case R.id.btnCreate:
                 txtNamePL.setVisibility(View.VISIBLE);
                 btnCreatePL.setVisibility(View.VISIBLE);
+                txtNameSong.setVisibility(View.INVISIBLE);
+                txtDSong.setVisibility(View.INVISIBLE);
+                btnAddSong.setVisibility(View.INVISIBLE);
                 break;
             case R.id.btnSort:
                 break;
@@ -83,7 +99,7 @@ public class Main2Activity extends AppCompatActivity {
                     Spinner spinner = (Spinner) findViewById(R.id.spinner);
                     String[] names = new String[ListOfLists.size()];
 
-                    for(int i = 0; i < names.length; i++) {
+                    for (int i = 0; i < names.length; i++) {
                         names[i] = ListOfLists.get(i).getName();
                     }
 
@@ -91,11 +107,22 @@ public class Main2Activity extends AppCompatActivity {
                             android.R.layout.simple_spinner_item, names);
                     spinner.setAdapter(adapter);
                 }
+                txtNamePL.setVisibility(View.INVISIBLE);
+                btnCreatePL.setVisibility(View.INVISIBLE);
+                txtNameSong.setVisibility(View.INVISIBLE);
+                txtDSong.setVisibility(View.INVISIBLE);
+                btnAddSong.setVisibility(View.INVISIBLE);
                 break;
         }
     }
 
 
-
-
+    @OnClick(R.id.btnAddSong)
+    public void onViewClicked() {
+        txtNamePL.setVisibility(View.INVISIBLE);
+        btnCreatePL.setVisibility(View.INVISIBLE);
+        txtNameSong.setVisibility(View.INVISIBLE);
+        txtDSong.setVisibility(View.INVISIBLE);
+        btnAddSong.setVisibility(View.INVISIBLE);
+    }
 }
